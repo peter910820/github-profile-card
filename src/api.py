@@ -32,7 +32,7 @@ class ApiGet(object):
         chart.title = "Github Profile"
         for key, value in self.language_data.items():
             chart.add(key, round(value * self.magnification, 1))
-        chart.render_to_file(f"./img/{self.user}_profile.svg")
+        chart.render_to_file(f"./chart/{self.user}_profile.svg")
 
 
     def draw_chart_matplotlib(self) -> None:
@@ -50,5 +50,5 @@ class ApiGet(object):
         plt.axis("equal")
         plt.title("Gitgub profile", pad=20)
 
-        plt.savefig(f"./img/{self.user}_profile.png")
+        plt.savefig(f"./chart/{self.user}_profile.png")
         
