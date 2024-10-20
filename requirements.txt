@@ -1,5 +1,7 @@
-request
+requests
 fastapi
 jinja2
+matplotlib
+pygal
 uvicorn
 python-multipart
