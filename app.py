@@ -20,6 +20,7 @@ async def read_item(request: Request):
 
 @app.get("/api")
 def read_root():
-    url = ApiGet("GreenTeaOnly")
-    url = url.get_data()
-    return {"URL": url}
+    api_get = ApiGet("peter910820")
+    api_get.get_data()
+    api_get.draw_chart()
+    return {"result": None}
