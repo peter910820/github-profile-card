@@ -13,14 +13,14 @@ templates = Jinja2Templates(directory="templates")
 app = FastAPI()
 
 @app.get("/", response_class=HTMLResponse)
-async def read_item(request: Request):
+async def index(request: Request):
     return templates.TemplateResponse(
         request=request, name="index.html"
     )
 
-@app.get("/api")
-def read_root():
-    api_get = ApiGet("peter910820")
+@app.get("/api/{user}")
+async def api(request: Request, user: str):
+    api_get = ApiGet(user)
     api_get.get_data()
-    api_get.draw_chart()
+    api_get.draw_chart_pygal()
     return {"result": None}
