@@ -3,6 +3,8 @@ from fastapi.responses import HTMLResponse
 from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
 
+from src.api import ApiGet
+
 app = FastAPI()
 
 app.mount("/static", StaticFiles(directory="static"), name="static")
@@ -18,4 +20,6 @@ async def read_item(request: Request):
 
 @app.get("/api")
 def read_root():
-    return {"Hello": "FastAPI"}
+    url = ApiGet("GreenTeaOnly")
+    url = url.get_data()
+    return {"URL": url}

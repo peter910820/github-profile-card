@@ -1,3 +1,4 @@
 request
 fastapi
+jinja2
 uvicorn
