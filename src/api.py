@@ -5,10 +5,15 @@ import pygal
 import requests
 
 from collections import Counter
+from pygal.style import DarkSolarizedStyle
+from pygal.style import Style 
 from requests import RequestException
 
 class ApiGet(object):
     def __init__(self, user: str):
+        with open('./colors_map.json') as f:
+            self.colors = json.load(f)
+        self.output_colors = []
         self.user = user
         self.url = f"https://api.github.com/users/{user}/repos"
         self.language_data = {}
@@ -28,7 +33,9 @@ class ApiGet(object):
             print("找不到使用者")
 
     def draw_chart_pygal(self) -> None:
-        chart = pygal.Pie(inner_radius = 0.5)
+        style = DarkSolarizedStyle
+        style.colors = tuple(self.colors[key] for key in self.language_data.keys())
+        chart = pygal.Pie(inner_radius = 0.5, style = style)
         chart.title = "Github Profile"
         for key, value in self.language_data.items():
             chart.add(key, round(value * self.magnification, 1))
