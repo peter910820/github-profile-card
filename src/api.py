@@ -33,10 +33,10 @@ class ApiGet(object):
             print("找不到使用者")
 
     def draw_chart_pygal(self) -> None:
-        style = DarkSolarizedStyle
+        style = DarkSolarizedStyle(title_font_size = 50)
         style.colors = tuple(self.colors[key] for key in self.language_data.keys())
         chart = pygal.Pie(inner_radius = 0.5, style = style)
-        chart.title = "Github Profile"
+        chart.title = "PR of Repo Languages"
         for key, value in self.language_data.items():
             chart.add(key, round(value * self.magnification, 1))
         chart.render_to_file(f"./chart/{self.user}_profile.svg")
