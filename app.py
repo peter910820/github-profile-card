@@ -1,5 +1,5 @@
-from fastapi import FastAPI, Request
-from fastapi.responses import HTMLResponse
+from fastapi import FastAPI, Form, Request
+from fastapi.responses import FileResponse, HTMLResponse
 from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
 import os
@@ -22,10 +22,15 @@ async def index(request: Request):
 @app.get("/api/{user}")
 async def api(request: Request, user: str):
     api_get = ApiGet(user)
-    api_get.get_data()
+    if api_get.get_data() is not None:
+        return
     api_get.draw_chart_pygal()
     return {"result": None}
 
 @app.post("/search")
-async def api(request: Request, user: str):
-    pass
+async def search(request: Request, user: str = Form(...)):
+    api_get = ApiGet(user)
+    if api_get.get_data() is not None:
+        return {"ERROR": "username not found"}
+    api_get.draw_chart_pygal()
+    return FileResponse(f"./chart/{user}_profile.svg")

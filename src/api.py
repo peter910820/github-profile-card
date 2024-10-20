@@ -19,11 +19,11 @@ class ApiGet(object):
         self.language_data = {}
         self.magnification = 0.0
 
-    def get_data(self) -> None:
+    def get_data(self) -> None | RequestException:
         try:
             r = requests.get(self.url)
         except RequestException as e:
-            print(e)
+            return e
         data = json.loads(r.content)
         if data:
             self.language_data = Counter([ d["language"] for d in data if d["language"] is not None])

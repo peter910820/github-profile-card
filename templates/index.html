@@ -9,23 +9,40 @@
     <title>Document</title>
 </head>
 <body>
+  <div id="loader" class="loader-container"><div class="loader"></div></div>
   <div class="row">
-    <h1 class="title">Github-Profile-Card</h1>
-    <form class="col s12" action="/search" action="/submit">
-      <div class="row">
-        <div class="input-field">
-          <i class="material-icons prefix">account_circle</i>
-          <textarea id="icon_prefix2" class="materialize-textarea"></textarea>
-          <label for="icon_prefix2">User name</label>
-          <a class="btn-floating btn-large waves-effect waves-light red" type="submit"><i class="material-icons">double_arrow</i></a>
+    <div class="col s6">
+      <h1 class="title">Github-Profile-Card</h1>
+    </div>
+    <div class="col s6">
+      <form id="form" class="col s12" action="/search" method="post">
+        <div class="row">
+          <div class="input-field">
+            <i class="material-icons prefix">account_circle</i>
+              <input id="inline" type="text" class="validate" name="user">
+              <label for="inline">user</label>
+          </div>
         </div>
-      </div>
-    </form>
+        <a id="submmit" class="btn-floating btn-large waves-effect waves-light red"><i class="material-icons">double_arrow</i></a>
+      </form>
+    </div>
   </div>
 </body>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
 <script> $(document).ready(function() {
     $('input#input_text, textarea#textarea2').characterCounter();
   });
+</script>
+<script>
+  window.addEventListener("load", function() {
+    document.getElementById("loader").style.display = 'none';
+    document.getElementById("content").style.display = 'block';  
+  });
+</script>
+<script>
+  document.getElementById("submmit").addEventListener("click", function(event) {
+  event.preventDefault();
+  document.getElementById("form").submit();
+});
 </script>
 </html>
