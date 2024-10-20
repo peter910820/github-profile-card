@@ -37,12 +37,15 @@ class ApiGet(object):
         style.colors = tuple(self.colors[key] for key in self.language_data.keys())
         chart = pygal.Pie(inner_radius = 0.5, style = style)
         chart.title = "PR of Repo Languages"
-        for key, value in self.language_data.items():
-            chart.add(key, round(value * self.magnification, 1))
+        try:
+            for key, value in self.language_data.items():
+                chart.add(key, round(value * self.magnification, 1))
+        except Exception as e:
+            print(f"ERROR: {e}")
         chart.render_to_file(f"./chart/{self.user}_profile.svg")
 
 
-    def draw_chart_matplotlib(self) -> None:
+    def __draw_chart_matplotlib(self) -> None:
         plt.style.use("Solarize_Light2")
 
         labels = [key for key in self.language_data.keys()]
