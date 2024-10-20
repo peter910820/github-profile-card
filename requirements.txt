@@ -1,0 +1,3 @@
+request
+fastapi
+uvicorn
