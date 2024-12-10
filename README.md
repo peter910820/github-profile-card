@@ -16,7 +16,7 @@ $ pip install -r requirements.txt
 3. into repo and run server.  
 ```bash
 $ cd ./github-profile-card
-$ uvicorn app:app --host 127.0.0.1 -port 5000
+$ uvicorn app:app --host 127.0.0.1 --port 5000
 ```  
 4. use form to get your github-profile-card  
 ---
