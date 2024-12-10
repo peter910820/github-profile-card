@@ -24,15 +24,19 @@ async def index(request: Request):
 
 @app.get("/api/{user}")
 async def api(request: Request, user: str):
+    if user.strip() == "":
+        return {"ERROR": "Username cannot be blank"}
     api_get = ApiGet(user)
     if api_get.get_data() is not None:
-        return
+        return {"ERROR": "username not found"}
     api_get.draw_chart_pygal()
-    return {"result": None}
+    return FileResponse(f"./chart/{user}_profile.svg")
 
 
 @app.post("/search")
 async def search(request: Request, user: str = Form(...)):
+    if user.strip() == "":
+        return {"ERROR": "Username cannot be blank"}
     api_get = ApiGet(user)
     if api_get.get_data() is not None:
         return {"ERROR": "username not found"}

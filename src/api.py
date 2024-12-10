@@ -6,7 +6,7 @@ import requests
 
 from collections import Counter
 from pygal.style import DarkSolarizedStyle
-from requests import RequestException
+# from requests import RequestException
 
 
 class ApiGet(object):
@@ -19,20 +19,19 @@ class ApiGet(object):
         self.language_data = {}
         self.magnification = 0.0
 
-    def get_data(self) -> None | RequestException:
+    def get_data(self) -> None | Exception:
         try:
             r = requests.get(self.url)
-        except RequestException as e:
-            return e
-        data = json.loads(r.content)
-        if data:
+            data = json.loads(r.content)
             self.language_data = Counter(
                 [d["language"] for d in data if d["language"] is not None])
             self.language_data = dict(self.language_data)
             self.magnification = 100 / \
                 sum([value for value in self.language_data.values()])
-        else:
-            print("找不到使用者")
+            return None
+        except Exception as e:
+            print(f"ERROR: {e}")
+            return e
 
     def draw_chart_pygal(self) -> None:
         style = DarkSolarizedStyle(title_font_size=50)
