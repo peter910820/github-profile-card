@@ -1,6 +1,6 @@
-import matplotlib.pyplot as plt
+# import matplotlib.pyplot as plt
 import json
-import numpy as np
+# import numpy as np
 import pygal
 import requests
 
@@ -47,20 +47,22 @@ class ApiGet(object):
             print(f"ERROR: {e}")
         chart.render_to_file(f"./chart/{self.user}_profile.svg")
 
-    def __draw_chart_matplotlib(self) -> None:
-        plt.style.use("Solarize_Light2")
+    # a feature use matplotlib
 
-        labels = [key for key in self.language_data.keys()]
-        sizes = list(map(lambda t: t * self.magnification,
-                     self.language_data.values()))
-        print(sizes)
-        colors = plt.cm.viridis(np.linspace(0, 1, len(sizes)))
-        # explode = (0.1, 0, 0, 0)  # Highlight a block
-        plt.figure(figsize=(10, 8))
-        plt.pie(sizes, labels=labels, colors=colors,
-                shadow=True, startangle=140)
+    # def __draw_chart_matplotlib(self) -> None:
+    #     plt.style.use("Solarize_Light2")
 
-        plt.axis("equal")
-        plt.title("Gitgub profile", pad=20)
+    #     labels = [key for key in self.language_data.keys()]
+    #     sizes = list(map(lambda t: t * self.magnification,
+    #                  self.language_data.values()))
+    #     print(sizes)
+    #     colors = plt.cm.viridis(np.linspace(0, 1, len(sizes)))
+    #     # explode = (0.1, 0, 0, 0)  # Highlight a block
+    #     plt.figure(figsize=(10, 8))
+    #     plt.pie(sizes, labels=labels, colors=colors,
+    #             shadow=True, startangle=140)
 
-        plt.savefig(f"./chart/{self.user}_profile.png")
+    #     plt.axis("equal")
+    #     plt.title("Gitgub profile", pad=20)
+
+    #     plt.savefig(f"./chart/{self.user}_profile.png")
