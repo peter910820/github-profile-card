@@ -6,24 +6,30 @@
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
     <link rel="stylesheet" href="/static/style.css">
-    <title>Document</title>
+    <title>github-profile-card</title>
 </head>
 <body>
   <div id="loader" class="loader-container"><div class="loader"></div></div>
+
   <div class="row">
-    <div class="col s6">
-      <h1 class="title">Github-Profile-Card</h1>
+    <div class="col s12 m12 l12 banner">
+      <div>
+        <p>Github-Profile-Card</p>
+        <p>Github個人專案資料卡</p>
+      </div>
     </div>
-    <div class="col s6">
-      <form id="form" class="col s12" action="/search" method="post">
-        <div class="row">
-          <div class="input-field">
+    <div class="col s12 m12 l12 form">
+      <form id="form" action="/search" method="post">
+          <div class="col s12 input-field">
             <i class="material-icons prefix">account_circle</i>
-              <input id="inline" type="text" class="validate" name="user">
-              <label for="inline">user</label>
+            <input id="inline" type="text" class="validate" name="user">
+            <label for="inline">USER</label>
           </div>
-        </div>
-        <a id="submmit" class="btn-floating btn-large waves-effect waves-light red"><i class="material-icons">double_arrow</i></a>
+          <div class="col s12">
+            <button>
+              <i class="material-icons">double_arrow</i>
+            </button>
+          </div>
       </form>
     </div>
   </div>
