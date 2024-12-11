@@ -1,7 +1,7 @@
 # github-profile-card ~ a github-profile-card generater with pygal.
 
 [![Static Badge](https://img.shields.io/badge/python-3.10%2B-blue)](https://www.python.org/downloads/release/python-3100/)
-[![GitHub license](https://img.shields.io/github/license/Naereen/StrapDown.js.svg)](https://github.com/peter910820/fonts-art/blob/main/LICENSE) 
+[![GitHub license](https://img.shields.io/github/license/Naereen/StrapDown.js.svg)](https://github.com/peter910820/github-profile-card/blob/main/LICENSE) 
 
 ## ⚙️ Build 
 
