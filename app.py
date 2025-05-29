@@ -13,6 +13,11 @@ app.mount("/chart", StaticFiles(directory="chart"), name="chart")
 templates = Jinja2Templates(directory="templates")
 
 
+@app.get("/favicon.ico")
+def favicon():
+    return FileResponse("static/favicon.ico")
+
+
 @app.get("/", response_class=HTMLResponse)
 async def index(request: Request):
     return templates.TemplateResponse(
