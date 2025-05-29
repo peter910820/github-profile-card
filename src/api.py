@@ -4,38 +4,53 @@ import json
 import pygal
 import requests
 
+
 from collections import Counter
+from loguru import logger
+from typing import Counter as CounterType
 from pygal.style import DarkSolarizedStyle
 # from requests import RequestException
+
+from typing import Dict, List, Any
 
 
 class ApiGet(object):
     def __init__(self, user: str):
         with open('./colors_map.json') as f:
-            self.colors = json.load(f)
-        self.output_colors = []
-        self.user = user
-        self.url = f"https://api.github.com/users/{user}/repos"
-        self.language_data = {}
-        self.magnification = 0.0
+            self.colors: Dict[str, str] = json.load(f)
+        self.user: str = user
+        self.url: str = f"https://api.github.com/users/{user}/repos"
+        self.language_data: CounterType[str] = Counter()
+        self.magnification: float = 0.0
+        # self.output_colors = []
 
-    def get_data(self) -> None | Exception:
+    def generate_chart(self) -> None:
+        """
+        generate user svg file entry point
+        """
+
         try:
             r = requests.get(self.url)
             data = json.loads(r.content)
             self.language_data = Counter(
                 [d["language"] for d in data if d["language"] is not None])
-            self.language_data = dict(self.language_data)
             self.magnification = 100 / \
-                sum([value for value in self.language_data.values()])
+                sum(value for value in self.language_data.values())
+            self.__draw_chart_pygal()
             return None
         except Exception as e:
-            print(f"ERROR: {e}")
-            return e
+            logger.error(e)
+            raise
 
-    def draw_chart_pygal(self) -> None:
+    def __draw_chart_pygal(self) -> None:
+        """
+        internal function
+
+        use to generate pygal svg file
+        """
+
         style = DarkSolarizedStyle(title_font_size=50)
-        style.colors = tuple(self.colors[key]
+        style.colors = tuple(self.colors[key]  # type: ignore
                              for key in self.language_data.keys())
         chart = pygal.Pie(inner_radius=0.5, style=style)
         chart.title = "PR of Repo Languages"
@@ -43,7 +58,8 @@ class ApiGet(object):
             for key, value in self.language_data.items():
                 chart.add(key, round(value * self.magnification, 1))
         except Exception as e:
-            print(f"ERROR: {e}")
+            logger.error(e)
+            raise
         chart.render_to_file(f"./chart/{self.user}_profile.svg")
 
     # a feature use matplotlib
